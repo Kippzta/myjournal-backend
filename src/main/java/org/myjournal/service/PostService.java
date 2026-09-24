@@ -1,5 +1,7 @@
 package org.myjournal.service;
 
+import java.util.List;
+
 import org.myjournal.dto.CreatePostDTO;
 import org.myjournal.entity.Post;
 import org.myjournal.entity.User;
@@ -22,4 +24,9 @@ public class PostService {
         postRepository.persist(post);
         return post;
     }
+
+    public List<Post> getPostsForUser(User user) {
+        return postRepository.findByUser(user);
+    }
+
 }
