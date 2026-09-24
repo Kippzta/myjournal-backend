@@ -17,12 +17,13 @@ public class PostDTO {
 
     private UserDTO userDto;
 
+
     public PostDTO(Post post) {
-        this.id = id;
-        this.note = note;
-        this.createdAt = LocalDateTime.now();
-        this.mood = mood;
-        this.userDto = userDto;
+        this.id = post.getId();
+        this.note = post.getNote();
+        this.createdAt = post.getCreatedAt();
+        this.mood = post.getMood();
+        this.userDto = new UserDTO(post.getUser());
     }
 
     public Long getId() {

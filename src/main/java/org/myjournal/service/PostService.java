@@ -9,6 +9,7 @@ import org.myjournal.repository.PostRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class PostService {
@@ -16,6 +17,7 @@ public class PostService {
     @Inject
     PostRepository postRepository;
 
+    @Transactional 
     public Post createPost(CreatePostDTO createPostDTO, User user) {
         Post post = new Post();
         post.setNote(createPostDTO.getNote());

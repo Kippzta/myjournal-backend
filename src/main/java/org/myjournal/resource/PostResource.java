@@ -3,13 +3,13 @@ package org.myjournal.resource;
 import java.util.List;
 
 import org.myjournal.dto.CreatePostDTO;
+import org.myjournal.dto.PostDTO;
 import org.myjournal.entity.Post;
 import org.myjournal.entity.User;
 import org.myjournal.repository.UserRepository;
 import org.myjournal.service.PostService;
 
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -37,10 +37,10 @@ public class PostResource {
     
 
     @POST 
-    @Transactional 
     public Response createPost(CreatePostDTO dto) {
         User user = userRepository.findById(1L);
         Post post = postService.createPost(dto, user);
-        return Response.status(Response.Status.CREATED).entity(post).build();
+        PostDTO postDTO = new PostDTO(post);
+        return Response.status(Response.Status.CREATED).entity(postDTO).build();
     }
 }
