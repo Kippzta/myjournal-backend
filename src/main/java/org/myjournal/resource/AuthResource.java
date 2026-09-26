@@ -29,6 +29,7 @@ public class AuthResource {
 
         User user = authService.registerUser(registerDTO);
 
+
         UserDTO userDTO = new UserDTO(user);
 
         return Response.status(Response.Status.CREATED).entity(userDTO).build();

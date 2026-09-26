@@ -16,8 +16,10 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 
 @Path ("/api/posts")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,21 +34,28 @@ public class PostResource {
 
     @GET 
     @RolesAllowed ("user")
-    public List<PostDTO> getAllPosts() {
-        User user = userRepository.findById(1L);
+    public List<PostDTO> getAllPosts(@Context SecurityContext securityContext) {
+
+        User user = userRepository.findByUsername(securityContext.getUserPrincipal().getName());
+
         List<Post> posts = postService.getPostsForUser(user);
         // Omvandlar alla posts till säkra DTO:er
         List<PostDTO> postDTOs = posts.stream().map(post -> new PostDTO(post)).toList();
+        
         return postDTOs;
     }
     
 
     @POST 
     @RolesAllowed ("user")
-    public Response createPost(CreatePostDTO dto) {
-        User user = userRepository.findById(1L);
+    public Response createPost(@Context SecurityContext securityContext, CreatePostDTO dto) {
+        // Hämtar den redan autentiserade användaren via SecurityContext.
+        User user = userRepository.findByUsername(securityContext.getUserPrincipal().getName());
+
         Post post = postService.createPost(dto, user);
+
         PostDTO postDTO = new PostDTO(post);
+
         return Response.status(Response.Status.CREATED).entity(postDTO).build();
     }
 }
