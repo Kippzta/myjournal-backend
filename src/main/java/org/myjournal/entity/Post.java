@@ -28,6 +28,8 @@ public class Post {
     private User user;
 
 
+
+    //PrePersist dvs att den körs innan den sparas i databasen så sätts createdAt till nuvarande tid.
     @PrePersist 
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
