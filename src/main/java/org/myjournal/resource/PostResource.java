@@ -30,9 +30,11 @@ public class PostResource {
     private UserRepository userRepository;
 
     @GET 
-    public List<Post> getAllPosts() {
+    public List<PostDTO> getAllPosts() {
         User user = userRepository.findById(1L);
-        return postService.getPostsForUser(user); 
+        List<Post> posts = postService.getPostsForUser(user);
+        List<PostDTO> postDTOs = posts.stream().map(post -> new PostDTO(post)).toList();
+        return postDTOs;
     }
     
 

@@ -2,6 +2,7 @@ package org.myjournal.dto;
 
 import org.myjournal.entity.User;
 
+//DTO för User som används för att skicka data till frontend.
 public class UserDTO {
 
     private Long id;

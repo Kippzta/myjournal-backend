@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 
 import org.myjournal.entity.Mood;
 import org.myjournal.entity.Post;
-
+//Dto skapad egentligen bara för att userDTO ska kunna skapas och skickas till frontend utan att lösenordet läcker ut.
+//Pga att Post innehåller en User med lösenordet så skapar vi en säker kopia som innehåller en UserDTO istället för en User.
 public class PostDTO {
 
     private Long id;
