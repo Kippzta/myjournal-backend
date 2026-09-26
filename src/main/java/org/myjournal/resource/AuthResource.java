@@ -5,6 +5,7 @@ import org.myjournal.dto.UserDTO;
 import org.myjournal.entity.User;
 import org.myjournal.service.AuthService;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -23,6 +24,7 @@ public class AuthResource {
     
     @Path ("/register")
     @POST 
+    @PermitAll 
     public Response registerUser(RegisterDTO registerDTO) {
 
         User user = authService.registerUser(registerDTO);
