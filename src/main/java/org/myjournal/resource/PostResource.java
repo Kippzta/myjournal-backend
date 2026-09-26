@@ -35,10 +35,13 @@ public class PostResource {
     @GET 
     @RolesAllowed ("user")
     public List<PostDTO> getAllPosts(@Context SecurityContext securityContext) {
+
         User user = userRepository.findByUsername(securityContext.getUserPrincipal().getName());
+
         List<Post> posts = postService.getPostsForUser(user);
         // Omvandlar alla posts till säkra DTO:er
         List<PostDTO> postDTOs = posts.stream().map(post -> new PostDTO(post)).toList();
+        
         return postDTOs;
     }
     
@@ -46,9 +49,13 @@ public class PostResource {
     @POST 
     @RolesAllowed ("user")
     public Response createPost(@Context SecurityContext securityContext, CreatePostDTO dto) {
+        // Hämtar den redan autentiserade användaren via SecurityContext.
         User user = userRepository.findByUsername(securityContext.getUserPrincipal().getName());
+
         Post post = postService.createPost(dto, user);
+
         PostDTO postDTO = new PostDTO(post);
+
         return Response.status(Response.Status.CREATED).entity(postDTO).build();
     }
 }
