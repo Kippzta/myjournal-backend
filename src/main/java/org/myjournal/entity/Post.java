@@ -11,7 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
-public class Post {
+public class Post{
 
     @Id
     @GeneratedValue

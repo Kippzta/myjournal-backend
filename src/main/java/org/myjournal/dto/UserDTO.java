@@ -9,9 +9,12 @@ public class UserDTO {
 
     private String username;
 
+    private String role;
+
     public UserDTO(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.role = user.getRole();
     }
 
 
@@ -23,6 +26,13 @@ public class UserDTO {
     public String getUsername() {
         return username;
     }
+
+
+    public String getRole() {
+        return role;
+    }
+
+    
 
 
     

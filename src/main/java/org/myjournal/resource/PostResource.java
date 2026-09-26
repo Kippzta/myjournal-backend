@@ -9,6 +9,7 @@ import org.myjournal.entity.User;
 import org.myjournal.repository.UserRepository;
 import org.myjournal.service.PostService;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -30,15 +31,18 @@ public class PostResource {
     private UserRepository userRepository;
 
     @GET 
+    @RolesAllowed ("user")
     public List<PostDTO> getAllPosts() {
         User user = userRepository.findById(1L);
         List<Post> posts = postService.getPostsForUser(user);
+        // Omvandlar alla posts till säkra DTO:er
         List<PostDTO> postDTOs = posts.stream().map(post -> new PostDTO(post)).toList();
         return postDTOs;
     }
     
 
     @POST 
+    @RolesAllowed ("user")
     public Response createPost(CreatePostDTO dto) {
         User user = userRepository.findById(1L);
         Post post = postService.createPost(dto, user);
