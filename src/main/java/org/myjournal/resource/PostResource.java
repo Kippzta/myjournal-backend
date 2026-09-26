@@ -33,6 +33,7 @@ public class PostResource {
     public List<PostDTO> getAllPosts() {
         User user = userRepository.findById(1L);
         List<Post> posts = postService.getPostsForUser(user);
+        // Omvandlar alla posts till säkra DTO:er
         List<PostDTO> postDTOs = posts.stream().map(post -> new PostDTO(post)).toList();
         return postDTOs;
     }

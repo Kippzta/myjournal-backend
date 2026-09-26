@@ -2,6 +2,7 @@ package org.myjournal.entity;
 
 import java.time.LocalDateTime;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
-public class Post {
+public class Post extends PanacheEntityBase {
 
     @Id
     @GeneratedValue
