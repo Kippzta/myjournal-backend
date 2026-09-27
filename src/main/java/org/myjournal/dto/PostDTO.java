@@ -18,7 +18,7 @@ public class PostDTO {
 
     private UserDTO userDto;
 
-
+    
     public PostDTO(Post post) {
         this.id = post.getId();
         this.note = post.getNote();

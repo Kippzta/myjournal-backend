@@ -2,7 +2,7 @@ package org.myjournal.dto;
 
 import org.myjournal.entity.User;
 
-//DTO för User som används för att skicka data till frontend.
+//DTO som används i PostDTO för att skicka med information om användaren som skapade inlägget utan att lösenordet läcker ut.
 public class UserDTO {
 
     private Long id;

@@ -1,5 +1,7 @@
 package org.myjournal.dto;
 
+
+// DTO som används för att ta emot data från frontend till backend när en användare registrerar sig.
 public class RegisterDTO {
     
     private String username;
