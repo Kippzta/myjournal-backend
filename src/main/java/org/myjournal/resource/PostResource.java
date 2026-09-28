@@ -1,9 +1,11 @@
 package org.myjournal.resource;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.myjournal.dto.CreatePostDTO;
 import org.myjournal.dto.PostDTO;
+import org.myjournal.dto.PostStatisticsDTO;
 import org.myjournal.entity.Post;
 import org.myjournal.entity.User;
 import org.myjournal.repository.UserRepository;
@@ -16,6 +18,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -57,5 +60,18 @@ public class PostResource {
         PostDTO postDTO = new PostDTO(post);
 
         return Response.status(Response.Status.CREATED).entity(postDTO).build();
+    }
+
+    @GET 
+    @Path ("/statistics")
+    @RolesAllowed ("user")
+    public PostStatisticsDTO showStatistics(@Context SecurityContext securityContext, @QueryParam("startDate") LocalDate startDate, @QueryParam("endDate") LocalDate endDate) {
+
+        User user = userRepository.findByUsername(securityContext.getUserPrincipal().getName());
+
+        PostStatisticsDTO postStats = postService.getStatistics(user, startDate, endDate);
+
+        return postStats;
+
     }
 }
