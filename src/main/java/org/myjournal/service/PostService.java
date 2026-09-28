@@ -40,7 +40,7 @@ public class PostService {
 
     // Metod för att visa statistik för en användares inlägg inom ett visst
     // datumintervall
-    public PostStatisticsDTO showStatistics(User user, LocalDate startDate, LocalDate endDate) {
+    public PostStatisticsDTO getStatistics(User user, LocalDate startDate, LocalDate endDate) {
 
         // createdAt lagras som LocalDateTime, och findByUserAndDateRange och queryn 
         // i PostRepository använder LocalDateTime för att kunna jämföra mot databasen med korrekt typ
