@@ -8,6 +8,8 @@ import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped 
 public class AuthService {
@@ -17,6 +19,11 @@ public class AuthService {
 
     @Transactional 
     public User registerUser(RegisterDTO registerDTO) {
+
+        if(userRepository.findByUsername(registerDTO.getUsername()) != null) {
+            throw new WebApplicationException("Username already exists:" + registerDTO.getUsername(), Response.Status.CONFLICT);
+        }
+
         User user = new User();
 
         user.setUsername(registerDTO.getUsername());
